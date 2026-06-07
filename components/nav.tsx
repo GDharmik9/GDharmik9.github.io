@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Github } from "lucide-react";
+import { GitHubMark } from "@/components/brand-icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { profile } from "@/lib/profile";
 
@@ -13,7 +13,7 @@ export function Nav() {
           {links.map((link) => <Link key={link} href={`/#${link.toLowerCase()}`} className="text-sm font-medium text-slate-600 transition hover:text-cyan-500 dark:text-slate-300">{link}</Link>)}
         </div>
         <div className="flex items-center gap-3">
-          <Link href={profile.github} aria-label="GitHub" className="rounded-full border border-slate-200 bg-white/80 p-2 text-slate-700 dark:border-white/10 dark:bg-white/10 dark:text-white"><Github className="h-4 w-4" /></Link>
+          <Link href={profile.github} aria-label="GitHub" className="rounded-full border border-slate-200 bg-white/80 p-2 text-slate-700 dark:border-white/10 dark:bg-white/10 dark:text-white"><GitHubMark className="h-4 w-4" /></Link>
           <ThemeToggle />
         </div>
       </nav>

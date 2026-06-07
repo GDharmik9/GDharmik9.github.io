@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink, Github } from "lucide-react";
+import { ArrowLeft, ExternalLink } from "lucide-react";
+import { GitHubMark } from "@/components/brand-icons";
 import { MermaidDiagram } from "@/components/mermaid-diagram";
 import { Nav } from "@/components/nav";
 import { ButtonLink, GlassCard } from "@/components/ui";
@@ -45,7 +46,7 @@ export default async function ProjectPage({ params }: Props) {
               <h1 className="mt-4 text-5xl font-black tracking-tight md:text-7xl">{project.name}</h1>
               <p className="mt-6 max-w-3xl text-xl leading-8 text-slate-200">{project.description}</p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <ButtonLink href={project.repo}><Github className="mr-2 h-4 w-4" /> Repository</ButtonLink>
+                <ButtonLink href={project.repo}><GitHubMark className="mr-2 h-4 w-4" /> Repository</ButtonLink>
                 {project.demo && <ButtonLink href={project.demo} variant="secondary">Demo <ExternalLink className="ml-2 h-4 w-4" /></ButtonLink>}
               </div>
             </div>
