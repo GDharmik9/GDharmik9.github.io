@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: light; }
+.dark { color-scheme: dark; }
+html { scroll-behavior: smooth; }
+body { min-height: 100vh; background: #f8fafc; }
+.dark body { background: #050816; }
+::selection { background: rgba(6, 182, 212, 0.35); }
+.bg-grid {
+  background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+.prose pre { border-radius: 1.5rem; }
