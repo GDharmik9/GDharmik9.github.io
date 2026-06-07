@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { GitHubMark } from "@/components/brand-icons";
+import { GitHubMark } from "@/components/icons";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { profile } from "@/lib/profile";
 

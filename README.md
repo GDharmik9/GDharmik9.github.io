@@ -9,7 +9,7 @@ Premium personal portfolio for **GDharmik9** built with Next.js 15, TypeScript, 
 - Static project case-study pages generated from curated GitHub repository analysis.
 - Client-side GitHub API analytics with static fallback data.
 - Accessible responsive UI for mobile, tablet, and desktop.
-- GitHub Pages deployment workflow on push to `main`.
+- GitHub Pages deployment workflow on push to `main` with a high-severity npm audit gate.
 
 ## Local development
 
@@ -24,6 +24,7 @@ Open <http://localhost:3000>.
 
 ```bash
 npm run build
+npm run audit
 ```
 
 The static site is exported to `out/` via `output: "export"` in `next.config.ts`.

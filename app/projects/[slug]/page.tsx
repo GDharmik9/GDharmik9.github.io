@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ExternalLink } from "lucide-react";
-import { GitHubMark } from "@/components/brand-icons";
+import { ArrowLeftIcon, ExternalLinkIcon, GitHubMark } from "@/components/icons";
 import { MermaidDiagram } from "@/components/mermaid-diagram";
 import { Nav } from "@/components/nav";
 import { ButtonLink, GlassCard } from "@/components/ui";
@@ -39,7 +38,7 @@ export default async function ProjectPage({ params }: Props) {
         <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-25 blur-3xl`} />
         <div className="bg-grid absolute inset-0 opacity-20" />
         <div className="relative mx-auto max-w-7xl pb-20">
-          <Link href="/#projects" className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-200 hover:text-white"><ArrowLeft className="h-4 w-4" /> Back to projects</Link>
+          <Link href="/#projects" className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-200 hover:text-white"><ArrowLeftIcon className="h-4 w-4" /> Back to projects</Link>
           <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_.42fr]">
             <div>
               <p className="text-sm font-bold uppercase tracking-[0.3em] text-cyan-200">Case study</p>
@@ -47,7 +46,7 @@ export default async function ProjectPage({ params }: Props) {
               <p className="mt-6 max-w-3xl text-xl leading-8 text-slate-200">{project.description}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <ButtonLink href={project.repo}><GitHubMark className="mr-2 h-4 w-4" /> Repository</ButtonLink>
-                {project.demo && <ButtonLink href={project.demo} variant="secondary">Demo <ExternalLink className="ml-2 h-4 w-4" /></ButtonLink>}
+                {project.demo && <ButtonLink href={project.demo} variant="secondary">Demo <ExternalLinkIcon className="ml-2 h-4 w-4" /></ButtonLink>}
               </div>
             </div>
             <GlassCard className="bg-white/10 text-white">

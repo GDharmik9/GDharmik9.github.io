@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, ExternalLink, Linkedin, Mail, MapPin, Sparkles } from "lucide-react";
-import { GitHubMark } from "@/components/brand-icons";
+import { ArrowRightIcon, ExternalLinkIcon, GitHubMark, LinkedInMark, MailIcon, MapPinIcon, SparklesIcon } from "@/components/icons";
 import { FloatingParticles, Reveal } from "@/components/motion";
 import { GitHubAnalytics } from "@/components/github-analytics";
 import { Nav } from "@/components/nav";
@@ -19,18 +18,18 @@ export default function Home() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 pb-24 lg:grid-cols-[1.08fr_.92fr]">
           <Reveal>
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm text-cyan-100">
-              <Sparkles className="h-4 w-4" /> Available for high-impact frontend, full-stack, and AI product work
+              <SparklesIcon className="h-4 w-4" /> Available for high-impact frontend, full-stack, and AI product work
             </div>
             <h1 className="mt-8 max-w-5xl text-5xl font-black tracking-tight md:text-7xl lg:text-8xl">Hi, I&apos;m <span className="bg-gradient-to-r from-white via-cyan-100 to-violet-200 bg-clip-text text-transparent">Ghanshyam Dharmik</span></h1>
             <p className="mt-6 text-xl font-semibold text-cyan-100 md:text-2xl">{profile.title}</p>
             <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-300">{profile.description}</p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <ButtonLink href="#projects">View Projects <ArrowRight className="ml-2 h-4 w-4" /></ButtonLink>
+              <ButtonLink href="#projects">View Projects <ArrowRightIcon className="ml-2 h-4 w-4" /></ButtonLink>
               <ButtonLink href="#contact" variant="secondary">Contact Me</ButtonLink>
               <ButtonLink href={profile.github} variant="secondary"><GitHubMark className="mr-2 h-4 w-4" /> GitHub</ButtonLink>
             </div>
             <div className="mt-8 flex flex-wrap items-center gap-4 text-sm text-slate-300">
-              <span className="inline-flex items-center gap-2"><MapPin className="h-4 w-4 text-cyan-300" /> {profile.location}</span>
+              <span className="inline-flex items-center gap-2"><MapPinIcon className="h-4 w-4 text-cyan-300" /> {profile.location}</span>
               <span>{profile.availability}</span>
             </div>
           </Reveal>
@@ -109,7 +108,7 @@ export default function Home() {
                   <div className="flex flex-1 flex-col p-6">
                     <p className="leading-7 text-slate-600 dark:text-slate-300">{project.description}</p>
                     <div className="mt-5 flex flex-wrap gap-2">{project.stack.slice(0, 4).map((tech) => <span key={tech} className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-700 dark:bg-white/10 dark:text-slate-200">{tech}</span>)}</div>
-                    <div className="mt-auto flex items-center justify-between pt-6 text-sm font-bold text-cyan-500"><span>Read case study</span><ExternalLink className="h-4 w-4" /></div>
+                    <div className="mt-auto flex items-center justify-between pt-6 text-sm font-bold text-cyan-500"><span>Read case study</span><ExternalLinkIcon className="h-4 w-4" /></div>
                   </div>
                 </GlassCard>
               </Link>
@@ -141,7 +140,7 @@ export default function Home() {
 
       <Section id="contact" eyebrow="Contact" title="Let’s build a fast, intelligent, beautifully engineered product.">
         <div className="grid gap-8 lg:grid-cols-[.9fr_1.1fr]">
-          <GlassCard><h3 className="text-2xl font-black text-slate-950 dark:text-white">Social presence</h3><div className="mt-6 space-y-4"><ContactLink href={profile.github} icon={<GitHubMark />} label="GitHub" value="github.com/GDharmik9" /><ContactLink href={profile.linkedin} icon={<Linkedin />} label="LinkedIn" value="linkedin.com/in/gdharmik9" /><ContactLink href={`mailto:${profile.email}`} icon={<Mail />} label="Email" value={profile.email} /></div></GlassCard>
+          <GlassCard><h3 className="text-2xl font-black text-slate-950 dark:text-white">Social presence</h3><div className="mt-6 space-y-4"><ContactLink href={profile.github} icon={<GitHubMark />} label="GitHub" value="github.com/GDharmik9" /><ContactLink href={profile.linkedin} icon={<LinkedInMark />} label="LinkedIn" value="linkedin.com/in/gdharmik9" /><ContactLink href={`mailto:${profile.email}`} icon={<MailIcon />} label="Email" value={profile.email} /></div></GlassCard>
           <GlassCard><form className="grid gap-4"><input className="rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-white/10" placeholder="Your name" aria-label="Your name" /><input className="rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-white/10" placeholder="Email address" aria-label="Email address" /><textarea className="min-h-36 rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-white/10" placeholder="Tell me about your project" aria-label="Project message" /><button type="button" className="rounded-full bg-slate-950 px-6 py-3 font-bold text-white dark:bg-white dark:text-slate-950">Contact form UI placeholder</button></form></GlassCard>
         </div>
       </Section>

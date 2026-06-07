@@ -27,6 +27,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm install
+      - name: Audit production dependency tree
+        run: npm audit --audit-level=high
       - name: Build static site
         run: npm run build
       - name: Preserve custom domain
