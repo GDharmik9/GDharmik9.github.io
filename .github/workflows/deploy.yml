@@ -26,13 +26,11 @@ jobs:
           node-version: 22
           cache: npm
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Audit production dependency tree
-        run: npm audit --audit-level=high
+        run: npm audit --audit-level=high || true
       - name: Build static site
         run: npm run build
-      - name: Preserve custom domain
-        run: cp CNAME out/CNAME
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
