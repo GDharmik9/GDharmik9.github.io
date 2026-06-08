@@ -57,3 +57,7 @@ export function SunIcon(props: IconProps) {
 export function MoonIcon(props: IconProps) {
   return <StrokeIcon {...props}><path d="M12 3a6 6 0 0 0 9 7.5A9 9 0 1 1 12 3Z" /></StrokeIcon>;
 }
+
+export function WebIcon(props: IconProps) {
+  return <StrokeIcon {...props}><path d="M2 12h20" /><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z" /><path d="M2.26 7.1a15.9 15.9 0 0 0-.26 4.9c0 1.7.2 3.4.26 4.9M21.74 7.1a15.9 15.9 0 0 1 .26 4.9c0 1.7-.2 3.4-.26 4.9M10.24 2a15.3 15.3 0 0 1 .72 20M13.76 2a15.3 15.3 0 0 0-.72 20" /></StrokeIcon>;
+}

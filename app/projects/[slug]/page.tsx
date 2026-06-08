@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeftIcon, ExternalLinkIcon, GitHubMark } from "@/components/icons";
+import { ArrowLeftIcon, ExternalLinkIcon, GitHubMark, WebIcon } from "@/components/icons";
 import { MermaidDiagram } from "@/components/mermaid-diagram";
 import { Nav } from "@/components/nav";
 import { ButtonLink, GlassCard } from "@/components/ui";
@@ -46,7 +46,8 @@ export default async function ProjectPage({ params }: Props) {
               <p className="mt-6 max-w-3xl text-xl leading-8 text-slate-200">{project.description}</p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <ButtonLink href={project.repo}><GitHubMark className="mr-2 h-4 w-4" /> Repository</ButtonLink>
-                {project.demo && <ButtonLink href={project.demo} variant="secondary">Demo <ExternalLinkIcon className="ml-2 h-4 w-4" /></ButtonLink>}
+                {/* {project.demo && <ButtonLink href={project.demo} variant="secondary">Demo <ExternalLinkIcon className="ml-2 h-4 w-4" /></ButtonLink>} */}
+                {project.demo && <ButtonLink href={project.demo}><WebIcon className="mr-2 h-4 w-4" /> Visit website</ButtonLink>}
               </div>
             </div>
             <GlassCard className="bg-white/10 text-white">
