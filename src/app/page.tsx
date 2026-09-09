@@ -12,7 +12,7 @@ import {
 } from '@/components/icons';
 import { FloatingParticles, Reveal } from '@/components/motion';
 import { GitHubAnalytics } from '@/components/github-analytics';
-import { Nav } from '@/components/nav';
+import { Nav } from '@/components/layout/nav';
 import { ButtonLink, GlassCard, Section } from '@/components/ui';
 import {
   achievements,
@@ -20,22 +20,47 @@ import {
   githubSnapshot,
   profile,
   skills,
-} from '@/lib/profile';
-import { projects } from '@/lib/projects';
+} from '@/data/profile';
+import { projects } from '@/data/projects';
 
 export default function Home() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
-  function onContactMeSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function onContactMeSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    setStatus('sending');
 
-    const subject = `Portfolio inquiry from ${name}`;
-    const body = `Name: ${name}\nEmail: ${email}\n\n${message}`;
-    const mailtoUrl = `mailto:ghanshyam@dharmik.me?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailtoUrl;
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/ghanshyam@dharmik.me', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `Portfolio inquiry from ${name}`,
+          _template: 'table',
+          _captcha: 'false',
+          name,
+          email,
+          message,
+        }),
+      });
+      const result = await response.json();
+      if (response.ok && result.success === 'true' || result.success === true) {
+        setStatus('sent');
+        setName('');
+        setEmail('');
+        setMessage('');
+      } else {
+        setStatus('error');
+      }
+    } catch {
+      setStatus('error');
+    }
   }
 
   return (
@@ -380,6 +405,13 @@ export default function Home() {
               onSubmit={(e) => onContactMeSubmit(e)}
             >
               <input
+                type="text"
+                name="_honey"
+                className="hidden"
+                tabIndex={-1}
+                autoComplete="off"
+              />
+              <input
                 className="rounded-2xl border border-slate-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-white/10"
                 placeholder="Your name"
                 aria-label="Your name"
@@ -406,10 +438,25 @@ export default function Home() {
               />
               <button
                 type="submit"
-                className="rounded-full bg-slate-950 px-6 py-3 font-bold text-white dark:bg-white dark:text-slate-950"
+                disabled={status === 'sending'}
+                className="rounded-full bg-slate-950 px-6 py-3 font-bold text-white transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60 dark:bg-white dark:text-slate-950"
               >
-                Send message
+                {status === 'sending' ? 'Sending…' : 'Send message'}
               </button>
+              {status === 'sent' && (
+                <p className="rounded-2xl border border-emerald-300/40 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-700 dark:border-emerald-400/30 dark:bg-emerald-400/10 dark:text-emerald-300">
+                  Message sent! I&apos;ll get back to you soon.
+                </p>
+              )}
+              {status === 'error' && (
+                <p className="rounded-2xl border border-red-300/40 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700 dark:border-red-400/30 dark:bg-red-400/10 dark:text-red-300">
+                  Something went wrong. Please email me directly at{' '}
+                  <a className="underline" href={`mailto:${profile.email}`}>
+                    {profile.email}
+                  </a>
+                  .
+                </p>
+              )}
             </form>
           </GlassCard>
         </div>

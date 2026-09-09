@@ -9,10 +9,10 @@ import {
   GitHubMark,
 } from '@/components/icons';
 import { MermaidDiagram } from '@/components/mermaid-diagram';
-import { Nav } from '@/components/nav';
+import { Nav } from '@/components/layout/nav';
 import { ButtonLink, GlassCard } from '@/components/ui';
-import { getProject, projects } from '@/lib/projects';
-import { profile } from '@/lib/profile';
+import { getProject, projects } from '@/data/projects';
+import { profile } from '@/data/profile';
 
 type Props = { params: Promise<{ slug: string }> };
 

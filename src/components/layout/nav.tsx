@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { GitHubMark } from "@/components/icons";
-import { ThemeToggle } from "@/components/theme-toggle";
-import { profile } from "@/lib/profile";
+import { ThemeToggle } from "@/components/layout/theme-toggle";
+import { profile } from "@/data/profile";
 
 export function Nav() {
   const links = ["About", "Skills", "Projects", "Analytics", "Experience", "Contact"];

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { githubSnapshot } from "@/lib/profile";
+import { githubSnapshot } from "@/data/profile";
 
 type Repo = { stargazers_count: number; language: string | null };
 
