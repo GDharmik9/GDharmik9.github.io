@@ -18,8 +18,8 @@ This plan is intentionally incremental. Each phase must be independently verifia
   - `/sitemap.xml`
 - Static project data is stored in `src/data/projects.ts`.
 - Profile data is stored in `src/data/profile.ts`.
-- GitHub data is split between `src/lib/github.ts`, `src/components/latest-repos.tsx`, and `src/components/github-analytics.tsx`.
-- The homepage currently contains most page sections, contact-form state, and presentation logic in one client component.
+- GitHub data access is shared through `src/lib/github.ts` and `src/lib/github-client.ts`, with UI under `src/features/github/`.
+- The homepage route composes focused feature components, while interactive behavior remains isolated to client components.
 - Project detail routes contain both curated case-study rendering and live repository rendering.
 - The production build currently succeeds and produces a static export.
 
