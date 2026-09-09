@@ -2,13 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import {
-  ArrowRightIcon,
-  ExternalLinkIcon,
-  StarIcon,
-  GitHubMark,
-} from '@/components/icons';
+import { ExternalLinkIcon, StarIcon, GitHubMark } from '@/components/icons';
 import { filterLatestRepos, repoToSlug, type GithubRepo } from '@/lib/github';
+import { fetchGithubRepositories } from '@/lib/github-client';
 
 const LANGUAGE_COLORS: Record<string, string> = {
   TypeScript: '#3178c6',
@@ -65,11 +61,8 @@ export function LatestRepos() {
         return;
       }
       try {
-        const response = await fetch(
-          'https://api.github.com/users/GDharmik9/repos?per_page=100&sort=pushed',
-        );
-        if (!response.ok) throw new Error('GitHub API unavailable');
-        const all: GithubRepo[] = await response.json();
+        const all = await fetchGithubRepositories('pushed');
+        if (!all) throw new Error('GitHub API unavailable');
         setRepos(filterLatestRepos(all));
         writeCache(all); // cache the full list; filter again on read
       } catch {

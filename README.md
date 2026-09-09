@@ -38,8 +38,9 @@ The static site is exported to `out/` via `output: "export"` in `next.config.ts`
 
 ## Updating profile data
 
-- Edit `lib/profile.ts` for personal profile, skills, experience, achievements, and LinkedIn placeholders.
-- Edit `lib/projects.ts` for featured projects and generated case-study copy.
+- Edit `src/data/profile.ts` for personal profile, skills, experience, achievements, and LinkedIn placeholders.
+- Edit `src/data/projects.ts` for featured projects and generated case-study copy.
+- Add reusable UI primitives under `src/components/ui/` and feature-specific sections under `src/features/`.
 - Replace visual placeholders in project pages with screenshots when product images are available.
 
 ## Data sources used

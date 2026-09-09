@@ -1,5 +1,3 @@
-//ignore type errors for this file because of the use of the "use client" directive
-// @ts-nocheck
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -68,7 +66,9 @@ function RepoDetail({ repo }: { repo: GithubRepo }) {
     <main className="min-h-screen bg-slate-50 dark:bg-ink">
       <Nav />
       <section className="relative overflow-hidden bg-[#050816] px-6 pt-32 text-white lg:px-8">
-        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-25 blur-3xl`} />
+        <div
+          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-25 blur-3xl`}
+        />
         <div className="bg-grid absolute inset-0 opacity-20" />
         <div className="relative mx-auto max-w-7xl pb-20">
           <Link
@@ -93,7 +93,10 @@ function RepoDetail({ repo }: { repo: GithubRepo }) {
                   <GitHubMark className="mr-2 h-4 w-4" /> Repository
                 </ButtonLink>
                 {repo.homepage && (
-                  <ButtonLink href={repo.homepage} variant="secondary">
+                  <ButtonLink
+                    href={repo.homepage}
+                    variant="secondary"
+                  >
                     Demo <ExternalLinkIcon className="ml-2 h-4 w-4" />
                   </ButtonLink>
                 )}
@@ -102,9 +105,18 @@ function RepoDetail({ repo }: { repo: GithubRepo }) {
             <GlassCard className="bg-white/10 text-white">
               <h2 className="text-xl font-black">Project facts</h2>
               <dl className="mt-5 space-y-4 text-sm">
-                <Fact label="Language" value={repo.language ?? '—'} />
-                <Fact label="Stars" value={String(repo.stargazers_count)} />
-                <Fact label="Forks" value={String(repo.forks_count)} />
+                <Fact
+                  label="Language"
+                  value={repo.language ?? '—'}
+                />
+                <Fact
+                  label="Stars"
+                  value={String(repo.stargazers_count)}
+                />
+                <Fact
+                  label="Forks"
+                  value={String(repo.forks_count)}
+                />
                 <Fact
                   label="Last updated"
                   value={new Date(repo.pushed_at).toLocaleDateString('en-US', {
@@ -134,10 +146,14 @@ function RepoDetail({ repo }: { repo: GithubRepo }) {
         <div className="mx-auto max-w-7xl">
           <CaseBlock title="About this project">
             <p>
-              This is a recent repository pulled live from my GitHub — it hasn&apos;t
-              been written up as a full case study yet. Check the repository for the
-              latest source code, README, and commits, or reach out through the{' '}
-              <Link className="font-semibold text-cyan-600 hover:underline dark:text-cyan-300" href="/#contact">
+              This is a recent repository pulled live from my GitHub — it
+              hasn&apos;t been written up as a full case study yet. Check the
+              repository for the latest source code, README, and commits, or
+              reach out through the{' '}
+              <Link
+                className="font-semibold text-cyan-600 hover:underline dark:text-cyan-300"
+                href="/#contact"
+              >
                 contact form
               </Link>{' '}
               if you&apos;d like a walkthrough.
@@ -149,8 +165,11 @@ function RepoDetail({ repo }: { repo: GithubRepo }) {
   );
 }
 
-
-function CaseStudy({ project }: { project: NonNullable<ReturnType<typeof getProject>> }) {
+function CaseStudy({
+  project,
+}: {
+  project: NonNullable<ReturnType<typeof getProject>>;
+}) {
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-ink">
       <Nav />
