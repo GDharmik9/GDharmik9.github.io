@@ -57,3 +57,7 @@ export function SunIcon(props: IconProps) {
 export function MoonIcon(props: IconProps) {
   return <StrokeIcon {...props}><path d="M12 3a6 6 0 0 0 9 7.5A9 9 0 1 1 12 3Z" /></StrokeIcon>;
 }
+
+export function StarIcon(props: IconProps) {
+  return <StrokeIcon {...props}><path d="M12 2 15.09 8.26 22 9.27l-5 4.87L18.18 22 12 18.56 5.82 22 7 14.14l-5-4.87 6.91-1.01L12 2Z" /></StrokeIcon>;
+}

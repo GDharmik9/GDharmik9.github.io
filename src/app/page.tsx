@@ -12,6 +12,7 @@ import {
 } from '@/components/icons';
 import { FloatingParticles, Reveal } from '@/components/motion';
 import { GitHubAnalytics } from '@/components/github-analytics';
+import { LatestRepos } from '@/components/latest-repos';
 import { Nav } from '@/components/layout/nav';
 import { ButtonLink, GlassCard, Section } from '@/components/ui';
 import {
@@ -27,30 +28,38 @@ export default function Home() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>(
+    'idle',
+  );
 
   async function onContactMeSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setStatus('sending');
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/ghanshyam@dharmik.me', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
+      const response = await fetch(
+        'https://formsubmit.co/ajax/ghanshyam@dharmik.me',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify({
+            _subject: `Portfolio inquiry from ${name}`,
+            _template: 'table',
+            _captcha: 'false',
+            name,
+            email,
+            message,
+          }),
         },
-        body: JSON.stringify({
-          _subject: `Portfolio inquiry from ${name}`,
-          _template: 'table',
-          _captcha: 'false',
-          name,
-          email,
-          message,
-        }),
-      });
+      );
       const result = await response.json();
-      if (response.ok && result.success === 'true' || result.success === true) {
+      if (
+        (response.ok && result.success === 'true') ||
+        result.success === true
+      ) {
         setStatus('sent');
         setName('');
         setEmail('');
@@ -66,11 +75,12 @@ export default function Home() {
   return (
     <main className="overflow-hidden">
       <Nav />
+
       <section className="relative min-h-screen bg-[#050816] px-6 pt-32 text-white lg:px-8">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(99,102,241,.35),transparent_32%),radial-gradient(circle_at_80%_20%,rgba(6,182,212,.24),transparent_28%),linear-gradient(135deg,#050816,#0f1028_45%,#050816)]" />
         <div className="bg-grid absolute inset-0 animate-grid opacity-30" />
         <FloatingParticles />
-        <div className="relative mx-auto grid max-w-7xl items-center gap-12 pb-24 lg:grid-cols-[1.08fr_.92fr]">
+        <div className="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-[1.08fr_.92fr]">
           <Reveal>
             <div className="inline-flex items-center gap-2 rounded-full border border-cyan-300/20 bg-cyan-300/10 px-4 py-2 text-sm text-cyan-100">
               <SparklesIcon className="h-4 w-4" /> Available for high-impact
@@ -166,6 +176,7 @@ export default function Home() {
             </div>
           </Reveal>
         </div>
+        <LatestRepos />
       </section>
 
       <Section
@@ -451,7 +462,10 @@ export default function Home() {
               {status === 'error' && (
                 <p className="rounded-2xl border border-red-300/40 bg-red-50 px-4 py-3 text-sm font-semibold text-red-700 dark:border-red-400/30 dark:bg-red-400/10 dark:text-red-300">
                   Something went wrong. Please email me directly at{' '}
-                  <a className="underline" href={`mailto:${profile.email}`}>
+                  <a
+                    className="underline"
+                    href={`mailto:${profile.email}`}
+                  >
                     {profile.email}
                   </a>
                   .

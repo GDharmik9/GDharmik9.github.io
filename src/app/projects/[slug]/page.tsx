@@ -13,35 +13,144 @@ import { Nav } from '@/components/layout/nav';
 import { ButtonLink, GlassCard } from '@/components/ui';
 import { getProject, projects } from '@/data/projects';
 import { profile } from '@/data/profile';
+import { fetchLatestRepos, fetchRepo, type GithubRepo } from '@/lib/github';
 
 type Props = { params: Promise<{ slug: string }> };
 
-export function generateStaticParams() {
-  return projects.map((project) => ({ slug: project.slug }));
+export async function generateStaticParams() {
+  const latest = await fetchLatestRepos();
+  return [
+    ...projects.map((project) => ({ slug: project.slug })),
+    ...latest.map((repo) => ({ slug: repo.name.toLowerCase() })),
+  ];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const project = getProject(slug);
-  if (!project) return {};
-  return {
-    title: `${project.name} Case Study`,
-    description: project.description,
-    alternates: { canonical: `/projects/${project.slug}/` },
-    openGraph: {
-      title: `${project.name} | Ghanshyam Dharmik`,
+  if (project) {
+    return {
+      title: `${project.name} Case Study`,
       description: project.description,
-      url: `${profile.domain}/projects/${project.slug}/`,
-      type: 'article',
-    },
+      alternates: { canonical: `/projects/${project.slug}/` },
+      openGraph: {
+        title: `${project.name} | Ghanshyam Dharmik`,
+        description: project.description,
+        url: `${profile.domain}/projects/${project.slug}/`,
+        type: 'article',
+      },
+    };
+  }
+  const repo = await fetchRepo(slug);
+  if (!repo || !repo.description) return {};
+  return {
+    title: `${repo.name} | Ghanshyam Dharmik`,
+    description: repo.description,
+    alternates: { canonical: `/projects/${slug}/` },
   };
 }
 
 export default async function ProjectPage({ params }: Props) {
   const { slug } = await params;
   const project = getProject(slug);
-  if (!project) notFound();
+  if (project) {
+    return <CaseStudy project={project} />;
+  }
 
+  const repo = await fetchRepo(slug);
+  if (!repo) notFound();
+  return <RepoDetail repo={repo} />;
+}
+
+function RepoDetail({ repo }: { repo: GithubRepo }) {
+  const gradient = 'from-indigo-500 via-violet-500 to-cyan-400';
+  return (
+    <main className="min-h-screen bg-slate-50 dark:bg-ink">
+      <Nav />
+      <section className="relative overflow-hidden bg-[#050816] px-6 pt-32 text-white lg:px-8">
+        <div className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-25 blur-3xl`} />
+        <div className="bg-grid absolute inset-0 opacity-20" />
+        <div className="relative mx-auto max-w-7xl pb-20">
+          <Link
+            href="/#latest"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-200 hover:text-white"
+          >
+            <ArrowLeftIcon className="h-4 w-4" /> Back to latest repos
+          </Link>
+          <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_.42fr]">
+            <div>
+              <p className="text-sm font-bold uppercase tracking-[0.3em] text-cyan-200">
+                Live from GitHub
+              </p>
+              <h1 className="mt-4 text-5xl font-black tracking-tight md:text-7xl">
+                {repo.name}
+              </h1>
+              <p className="mt-6 max-w-3xl text-xl leading-8 text-slate-200">
+                {repo.description}
+              </p>
+              <div className="mt-8 flex flex-wrap gap-3">
+                <ButtonLink href={repo.html_url}>
+                  <GitHubMark className="mr-2 h-4 w-4" /> Repository
+                </ButtonLink>
+                {repo.homepage && (
+                  <ButtonLink href={repo.homepage} variant="secondary">
+                    Demo <ExternalLinkIcon className="ml-2 h-4 w-4" />
+                  </ButtonLink>
+                )}
+              </div>
+            </div>
+            <GlassCard className="bg-white/10 text-white">
+              <h2 className="text-xl font-black">Project facts</h2>
+              <dl className="mt-5 space-y-4 text-sm">
+                <Fact label="Language" value={repo.language ?? '—'} />
+                <Fact label="Stars" value={String(repo.stargazers_count)} />
+                <Fact label="Forks" value={String(repo.forks_count)} />
+                <Fact
+                  label="Last updated"
+                  value={new Date(repo.pushed_at).toLocaleDateString('en-US', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric',
+                  })}
+                />
+              </dl>
+              {repo.topics?.length > 0 && (
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {repo.topics.map((topic) => (
+                    <span
+                      key={topic}
+                      className="rounded-full bg-cyan-400/10 px-3 py-1 text-xs font-semibold text-cyan-100 ring-1 ring-cyan-300/20"
+                    >
+                      {topic}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </GlassCard>
+          </div>
+        </div>
+      </section>
+      <section className="px-6 py-16 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <CaseBlock title="About this project">
+            <p>
+              This is a recent repository pulled live from my GitHub — it hasn&apos;t
+              been written up as a full case study yet. Check the repository for the
+              latest source code, README, and commits, or reach out through the{' '}
+              <Link className="font-semibold text-cyan-600 hover:underline dark:text-cyan-300" href="/#contact">
+                contact form
+              </Link>{' '}
+              if you&apos;d like a walkthrough.
+            </p>
+          </CaseBlock>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+
+function CaseStudy({ project }: { project: NonNullable<ReturnType<typeof getProject>> }) {
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-ink">
       <Nav />
